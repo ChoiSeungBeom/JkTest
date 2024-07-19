@@ -6,6 +6,7 @@ pipeline {
         IMAGE_REPO_NAME="devopstest"
         IMAGE_TAG="latest"
         REPOSITORY_URI = "058087963754.dkr.ecr.us-east-1.amazonaws.com/devopstest"
+        GIT_CREDENTIAL = "test_git_credential"
     }
    
     stages {
@@ -21,7 +22,7 @@ pipeline {
         
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/ChoiSeungBeom/JkTest']]])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'test_git_credential', url: 'https://github.com/ChoiSeungBeom/JkTest']]])     
             }
         }
   
