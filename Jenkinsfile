@@ -24,8 +24,21 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'test_git_credential', url: 'https://github.com/ChoiSeungBeom/JkTest']]])     
             }
+            post {
+                failure {
+                    echo 'clone failed'
+                }
+                success {
+                    echo 'clone success'
+                }
+            }
         }
-  
+
+        stage('Building code'){
+            steps {
+                sh "gradle clean package"
+            }
+        }
     // Building Docker images
     stage('Building image') {
       steps{
